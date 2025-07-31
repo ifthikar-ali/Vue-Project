@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3.4 Template</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/normalize.css/normalize.css"
+    />
+    <style type="text/css">
+      body {
+        font-family: monospace;
+        padding: 20px;
+        font-size: 2em;
+      }
+      .can {
+        color: green;
+      }
+      .cannot {
+        color: red;
+      }
+    </style>
+    <script src="https://unpkg.com/vue@3.4.0"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <div>
+        <label>Enter your Age: </label>
+        <input v-model="age" type="text" />
+      </div>
+      <div>{{message}}</div>
+      <div>{{message2}}</div>
+      <div>
+        Can you drive:
+        <span :class="{'can':canDrive === 'Yes', 'cannot': canDrive ==='No'}"
+          >{{canDrive}}</span
+        >
+      </div>
+    </div>
+    <script>
+      const { createApp, ref, isRef, computed } = Vue;
+      // ref refers to reactivity and isRef is a function to check a variable is ref or not.
+      const App = {
+        setup() {
+          let message = ref("hello world!");
+          let message2 = "Check ref variable";
+          let age = ref(null);
+          let canDrive = computed(() => {
+            console.log("Computed Called!");
+            return age.value > 18 ? "Yes" : "No";
+          });
+          setTimeout(() => {
+            console.log("Changed!");
+            message.value = "Hello from post 3 seconds";
+            age.value = 26;
+            console.log(isRef(message));
+            console.log(isRef(message2));
+          }, 3000);
+          return { message, message2, canDrive, age };
+        },
+      };
+
+      createApp(App).mount("#app");
+    </script>
+  </body>
+</html>
