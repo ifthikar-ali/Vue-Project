@@ -28,12 +28,14 @@
     <div id="app">
       <div>
         <label>Enter your Age: </label>
+        <!-- v-input is a Vuetify component for text input with validation and label -->
         <input v-model="age" type="text" />
       </div>
       <div>{{message}}</div>
       <div>{{message2}}</div>
       <div>
         Can you drive:
+        <!-- :class dynamically adds CSS classes based on conditions -->
         <span :class="{'can':canDrive === 'Yes', 'cannot': canDrive ==='No'}"
           >{{canDrive}}</span
         >
@@ -41,12 +43,14 @@
     </div>
     <script>
       const { createApp, ref, isRef, computed } = Vue;
-      // ref refers to reactivity and isRef is a function to check a variable is ref or not.
+      // `ref` creates a reactive reference to a value
+      // `isRef` checks if a value is a Vue ref
       const App = {
         setup() {
           let message = ref("hello world!");
           let message2 = "Check ref variable";
           let age = ref(null);
+          // `computed` creates a reactive derived value (automatically updates when dependencies change)
           let canDrive = computed(() => {
             console.log("Computed Called!");
             return age.value > 18 ? "Yes" : "No";
